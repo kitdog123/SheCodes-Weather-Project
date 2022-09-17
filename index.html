@@ -21,88 +21,71 @@
   </head>
   <body>
     <div class="container">
-      <form id="city-form">
-        <input
-          type="text"
-          name="city"
-          id="city-input"
-          placeholder="Enter your city"
-        />
-        <input type="submit" value="Search" />
-      </form>
-      <div class="row">
-        <div class="col-5">
-          <img
-            class="cityImage"
-            src="images/London.jpg"
-            alt="London City"
-            width="170px"
+      <div class="weather-app">
+        <form id="city-form">
+          <input
+            type="text"
+            name="city"
+            id="city-input"
+            placeholder="Enter your city"
           />
-        </div>
-        <div class="col-7">
-          <div class="row">
-            <div class="col">
-              <h1>London</h1>
-            </div>
-            <div class="row">
-              <div class="col currentWeatherEmoji">
-                <i class="fa-solid fa-moon"></i>
-              </div>
-              <div class="col">
-                <h2 id="date"></h2>
-              </div>
-            </div>
+          <input type="submit" value="Search" />
+        </form>
+        <div class="row">
+          <div class="col-6">
+            <h1>London</h1>
+            <h2>
+              <span id="temperature"> 22 </span>
+              <span class="units">
+                <a href="#" id="celsius">°C</a> |
+                <a href="#" id="fahrenheit">°F</a>
+              </span>
+            </h2>
           </div>
-          <div class="row">
-            <div class="col">
-              <h3>
-                <span id="temperature"> 22 </span>
-                <span class="units">
-                  <a href="#" id="celsius">°C</a> |
-                  <a href="#" id="fahrenheit">°F</a>
-                </span>
-              </h3>
-            </div>
-            <div class="col">
-              <div class="weatherDescription">Clear</div>
-              <div class="temperature">High 24° | Low 18°</div>
-            </div>
+          <div class="col-6">
+            <ul>
+              <li id="date"></li>
+              <li class="weatherDescription">Clear</li>
+              <li class="temperature">High 24° | Low 18°</li>
+              <li class="humidity">Humidity: 73%</li>
+              <li class="wind">Wind: 2km/h</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            Tues <br />
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <div class="col">
+            Weds <br />
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <div class="col">
+            Thurs <br />
+            <i class="fa-solid fa-cloud-sun"></i>
+          </div>
+          <div class="col">
+            Fri <br />
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <div class="col">
+            Sat <br />
+            <i class="fa-solid fa-cloud-sun"></i>
+          </div>
+          <div class="col">
+            Sun <br />
+            <i class="fa-solid fa-cloud-rain"></i>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          Tues <br />
-          <i class="fa-solid fa-sun"></i>
-        </div>
-        <div class="col">
-          Weds <br />
-          <i class="fa-solid fa-sun"></i>
-        </div>
-        <div class="col">
-          Thurs <br />
-          <i class="fa-solid fa-cloud-sun"></i>
-        </div>
-        <div class="col">
-          Fri <br />
-          <i class="fa-solid fa-sun"></i>
-        </div>
-        <div class="col">
-          Sat <br />
-          <i class="fa-solid fa-cloud-sun"></i>
-        </div>
-        <div class="col">
-          Sun <br />
-          <i class="fa-solid fa-cloud-rain"></i>
-        </div>
-      </div>
+      <footer>
+        <a href="https://github.com/kitdog123/SheCodes-Weather-Project">
+          Open Source Code
+        </a>
+        by Kitty
+      </footer>
     </div>
-    <footer>
-      <a href="https://github.com/kitdog123/SheCodes-Weather-Project">
-        Open Source Code
-      </a>
-      by Kitty
-    </footer>
   </body>
   <script src="src/script.js"></script>
 </html>
