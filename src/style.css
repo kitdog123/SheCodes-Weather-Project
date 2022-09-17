@@ -4,6 +4,6 @@
   border-style: solid;
   border-width: 2px;
 }
-.cityImage {
-  margin: 10px;
+.weather-app {
+  max-width: 600px;
 }
