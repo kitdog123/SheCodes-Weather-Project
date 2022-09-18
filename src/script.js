@@ -1,7 +1,5 @@
 function getWeather(response) {
-  console.log(response.data);
   let temperatureRounded = Math.round(response.data.main.temp);
-  console.log(temperatureRounded);
   let displayTemp = document.querySelector("#temperature");
   let weatherDescription = document.querySelector("#weatherDescription");
   let humidity = document.querySelector("#humidity");
@@ -14,7 +12,6 @@ function getWeather(response) {
 
 function showCity(event) {
   let city = document.querySelector("#city-input").value;
-  console.log(city);
   let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(getWeather);
@@ -71,12 +68,16 @@ function formatDate(date) {
   let currentMonth = months[date.getMonth()];
   let currentDate = date.getDate();
   let currentHours = date.getHours();
+  if (currentHours < 10) {
+    currentHours = `0${currentHours}`;
+  }
   let currentMinutes = date.getMinutes();
-
+  if (currentMinutes < 10) {
+    currentMinutes = `0${currentMinutes}`;
+  }
   let todaysDateFormatted = `${currentDay} ${currentDate} ${currentMonth} ${currentHours}:${currentMinutes}`;
   return todaysDateFormatted;
 }
-console.log(formatDate(todaysDate));
 
 let date = document.querySelector("#date");
 date.innerHTML = formatDate(todaysDate);
