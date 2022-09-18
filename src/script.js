@@ -3,7 +3,13 @@ function getWeather(response) {
   let temperatureRounded = Math.round(response.data.main.temp);
   console.log(temperatureRounded);
   let displayTemp = document.querySelector("#temperature");
+  let weatherDescription = document.querySelector("#weatherDescription");
+  let humidity = document.querySelector("#humidity");
+  let wind = document.querySelector("#wind");
   displayTemp.innerHTML = `${temperatureRounded}`;
+  weatherDescription.innerHTML = response.data.weather[0].description;
+  humidity.innerHTML = response.data.main.humidity;
+  wind.innerHTML = Math.round(response.data.wind.speed);
 }
 
 function showCity(event) {
