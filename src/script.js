@@ -25,7 +25,7 @@ function getWeather(response) {
     weatherGif.setAttribute("src", "images/sun.gif");
   }
   if (weatherDescription === "Clouds") {
-    weatherGif.setAttribute("src", "images/cloudy.gif");
+    weatherGif.setAttribute("src", "images/clouds.gif");
   }
   if (weatherDescription === "Thunderstorm") {
     weatherGif.setAttribute("src", "images/storm.gif");
