@@ -2,20 +2,49 @@ function getWeather(response) {
   console.log(response.data);
   let temperatureRounded = Math.round(response.data.main.temp);
   let displayTemp = document.querySelector("#temperature");
-  let weatherDescription = document.querySelector("#weatherDescription");
+  let weatherDescriptionElement = document.querySelector("#weatherDescription");
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
   let highTemp = document.querySelector("#highTemp");
   let lowTemp = document.querySelector("#lowTemp");
-
+  let weatherGif = document.querySelector("#weather-gif");
+  let weatherDescription = response.data.weather[0].main;
   celsiusTemperature = response.data.main.temp;
 
   displayTemp.innerHTML = `${temperatureRounded}`;
-  weatherDescription.innerHTML = response.data.weather[0].main;
+  weatherDescriptionElement.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = response.data.main.humidity;
   wind.innerHTML = Math.round(response.data.wind.speed);
   highTemp.innerHTML = Math.round(response.data.main.temp_max);
   lowTemp.innerHTML = Math.round(response.data.main.temp_min);
+
+  if (weatherDescription === "Rain") {
+    weatherGif.setAttribute("src", "images/rain.gif");
+  }
+  if (weatherDescription === "Clear") {
+    weatherGif.setAttribute("src", "images/sun.gif");
+  }
+  if (weatherDescription === "Clouds") {
+    weatherGif.setAttribute("src", "images/cloudy.gif");
+  }
+  if (weatherDescription === "Thunderstorm") {
+    weatherGif.setAttribute("src", "images/storm.gif");
+  }
+  if (weatherDescription === "Drizzle") {
+    weatherGif.setAttribute("src", "images/drizzle.gif");
+  }
+  if (weatherDescription === "Snow") {
+    weatherGif.setAttribute("src", "images/snowflake.gif");
+  }
+  if (
+    weatherDescription === "Mist" ||
+    weatherDescription === "Smoke" ||
+    weatherDescription === "Haze" ||
+    weatherDescription === "Fog" ||
+    weatherDescription === "Dust"
+  ) {
+    weatherGif.setAttribute("src", "images/foggy.gif");
+  }
 }
 
 function showCity(event) {
