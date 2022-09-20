@@ -132,6 +132,34 @@ function changeToC(event) {
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeToC);
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+              <div class="col-2">
+                <div class="forecast-date">${day}</div>
+                <img src="images/rain.gif" alt="rain" id="forecast-gif" />
+                <div class="forecast-temperatures">
+                  <span class="forecast-max">16</span>°<span
+                    class="forecast-min"
+                    >12</span
+                  >°
+                </div>
+              </div>
+            
+            `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+displayForecast();
+
 //function currentLocationWeather(response) {
 //console.log(response.data);
 //let temperatureRounded = Math.round(response.data.main.temp);
