@@ -1,3 +1,41 @@
+function getForecast(coordinates) {
+  let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function changeGif(description) {
+  let weatherGif = document.querySelector("#weather-gif");
+
+  if (description === "Rain") {
+    weatherGif.setAttribute("src", "images/rain.gif");
+  }
+  if (description === "Clear") {
+    weatherGif.setAttribute("src", "images/sun.gif");
+  }
+  if (description === "Clouds") {
+    weatherGif.setAttribute("src", "images/clouds.gif");
+  }
+  if (description === "Thunderstorm") {
+    weatherGif.setAttribute("src", "images/storm.gif");
+  }
+  if (description === "Drizzle") {
+    weatherGif.setAttribute("src", "images/drizzle.gif");
+  }
+  if (description === "Snow") {
+    weatherGif.setAttribute("src", "images/snowflake.gif");
+  }
+  if (
+    description === "Mist" ||
+    description === "Smoke" ||
+    description === "Haze" ||
+    description === "Fog" ||
+    description === "Dust"
+  ) {
+    weatherGif.setAttribute("src", "images/foggy.gif");
+  }
+}
+
 function getWeather(response) {
   console.log(response.data);
   let temperatureRounded = Math.round(response.data.main.temp);
@@ -7,7 +45,6 @@ function getWeather(response) {
   let wind = document.querySelector("#wind");
   let highTemp = document.querySelector("#highTemp");
   let lowTemp = document.querySelector("#lowTemp");
-  let weatherGif = document.querySelector("#weather-gif");
   let weatherDescription = response.data.weather[0].main;
   celsiusTemperature = response.data.main.temp;
 
@@ -18,33 +55,9 @@ function getWeather(response) {
   highTemp.innerHTML = Math.round(response.data.main.temp_max);
   lowTemp.innerHTML = Math.round(response.data.main.temp_min);
 
-  if (weatherDescription === "Rain") {
-    weatherGif.setAttribute("src", "images/rain.gif");
-  }
-  if (weatherDescription === "Clear") {
-    weatherGif.setAttribute("src", "images/sun.gif");
-  }
-  if (weatherDescription === "Clouds") {
-    weatherGif.setAttribute("src", "images/clouds.gif");
-  }
-  if (weatherDescription === "Thunderstorm") {
-    weatherGif.setAttribute("src", "images/storm.gif");
-  }
-  if (weatherDescription === "Drizzle") {
-    weatherGif.setAttribute("src", "images/drizzle.gif");
-  }
-  if (weatherDescription === "Snow") {
-    weatherGif.setAttribute("src", "images/snowflake.gif");
-  }
-  if (
-    weatherDescription === "Mist" ||
-    weatherDescription === "Smoke" ||
-    weatherDescription === "Haze" ||
-    weatherDescription === "Fog" ||
-    weatherDescription === "Dust"
-  ) {
-    weatherGif.setAttribute("src", "images/foggy.gif");
-  }
+  changeGif(response.data.weather[0].main);
+
+  getForecast(response.data.coord);
 }
 
 function showCity(event) {
@@ -132,7 +145,7 @@ function changeToC(event) {
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeToC);
 
-function displayForecast() {
+function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
@@ -157,8 +170,6 @@ function displayForecast() {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-
-displayForecast();
 
 //function currentLocationWeather(response) {
 //console.log(response.data);
