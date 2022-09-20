@@ -8,6 +8,7 @@ h1 {
   line-height: 29px;
   margin: 20px 0 10px;
   text-align: center;
+  text-transform: capitalize;
 }
 h2 {
   color: #272142;
@@ -66,7 +67,7 @@ footer {
   margin-top: 20px;
 }
 .units {
-  font-size: small;
+  font-size: 16px;
 }
 .forecast {
   text-align: center;
@@ -77,6 +78,7 @@ footer {
 }
 .forecast-temperatures {
   font-size: 13px;
+  margin-top: 5px;
 }
 .forecast-min {
   color: rgba(39, 33, 66, 0.4);
@@ -94,4 +96,13 @@ footer {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+#celsius {
+  color: #33cccc;
+}
+#fahrenheit {
+  color: #33cccc;
+}
+.footer-link {
+  color: #33cccc;
 }

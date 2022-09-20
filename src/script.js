@@ -1,3 +1,33 @@
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index > 0 && index < 7) {
+      forecastHTML =
+        forecastHTML +
+        `
+              <div class="col-2">
+                <div class="forecast-date">${formatDay(forecastDay.dt)}</div>
+                <img src="images/rain.gif" alt="rain" id="forecast-gif" />
+                <div class="forecast-temperatures">
+                  <span class="forecast-max">${Math.round(
+                    forecastDay.temp.max
+                  )}</span>° <span
+                    class="forecast-min"
+                    >${Math.round(forecastDay.temp.min)}</span
+                  >°
+                </div>
+              </div>
+            
+            `;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function getForecast(coordinates) {
   let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
@@ -45,7 +75,6 @@ function getWeather(response) {
   let wind = document.querySelector("#wind");
   let highTemp = document.querySelector("#highTemp");
   let lowTemp = document.querySelector("#lowTemp");
-  let weatherDescription = response.data.weather[0].main;
   celsiusTemperature = response.data.main.temp;
 
   displayTemp.innerHTML = `${temperatureRounded}`;
@@ -66,6 +95,13 @@ function showCity(event) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(getWeather);
 }
+
+function changeTime(response) {
+  console.log(response);
+}
+
+let apiUrl = `https://timeapi.io/api/Time/current/coordinate?latitude=38.9&longitude=-77.03`;
+axios.get(apiUrl).then(changeTime);
 
 let citySearchForm = document.querySelector("#city-form");
 citySearchForm.addEventListener("submit", showCity);
@@ -150,34 +186,6 @@ function formatDay(timestamp) {
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return days[day];
-}
-
-function displayForecast(response) {
-  let forecast = response.data.daily;
-  let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = `<div class="row">`;
-  forecast.forEach(function (forecastDay) {
-    forecastHTML =
-      forecastHTML +
-      `
-              <div class="col-2">
-                <div class="forecast-date">${formatDay(forecastDay.dt)}</div>
-                <img src="images/rain.gif" alt="rain" id="forecast-gif" />
-                <div class="forecast-temperatures">
-                  <span class="forecast-max">${Math.round(
-                    forecastDay.temp.max
-                  )}</span>°<span
-                    class="forecast-min"
-                    >${Math.round(forecastDay.temp.min)}</span
-                  >°
-                </div>
-              </div>
-            
-            `;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
 }
 
 //function currentLocationWeather(response) {
