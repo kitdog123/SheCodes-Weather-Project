@@ -192,7 +192,7 @@ function changeTime(response) {
 }
 
 function getTime(coordinates) {
-  let apiUrl = `http://api.timezonedb.com/v2.1/get-time-zone?key=GJVOQZUKWFGE&format=json&by=position&lat=${coordinates.lat}&lng=${coordinates.lon}`;
+  let apiUrl = `https://api.timezonedb.com/v2.1/get-time-zone?key=GJVOQZUKWFGE&format=json&by=position&lat=${coordinates.lat}&lng=${coordinates.lon}`;
   axios.get(apiUrl).then(changeTime);
 }
 
