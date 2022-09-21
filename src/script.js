@@ -28,11 +28,14 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHTML;
 }
 
-function getForecast(coordinates) {
-  let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayForecast);
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
 }
+
+let celsiusTemperature = null;
 
 function changeGif(description) {
   let weatherGif = document.querySelector("#weather-gif");
@@ -66,8 +69,13 @@ function changeGif(description) {
   }
 }
 
+function getForecast(coordinates) {
+  let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function getWeather(response) {
-  console.log(response.data);
   let temperatureRounded = Math.round(response.data.main.temp);
   let displayTemp = document.querySelector("#temperature");
   let weatherDescriptionElement = document.querySelector("#weatherDescription");
@@ -75,8 +83,8 @@ function getWeather(response) {
   let wind = document.querySelector("#wind");
   let highTemp = document.querySelector("#highTemp");
   let lowTemp = document.querySelector("#lowTemp");
-  celsiusTemperature = response.data.main.temp;
 
+  celsiusTemperature = response.data.main.temp;
   displayTemp.innerHTML = `${temperatureRounded}`;
   weatherDescriptionElement.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = response.data.main.humidity;
@@ -87,6 +95,7 @@ function getWeather(response) {
   changeGif(response.data.weather[0].main);
 
   getForecast(response.data.coord);
+  getTime(response.data.coord);
 }
 
 function showCity(event) {
@@ -96,17 +105,11 @@ function showCity(event) {
   axios.get(apiUrl).then(getWeather);
 }
 
-function changeTime(response) {
-  console.log(response);
-}
-
-let apiUrl = `https://timeapi.io/api/Time/current/coordinate?latitude=38.9&longitude=-77.03`;
-axios.get(apiUrl).then(changeTime);
-
 let citySearchForm = document.querySelector("#city-form");
 citySearchForm.addEventListener("submit", showCity);
 
-let todaysDate = new Date();
+// DATE AND TIME
+
 function formatDate(date) {
   let days = [
     "Sunday",
@@ -147,8 +150,18 @@ function formatDate(date) {
   return todaysDateFormatted;
 }
 
-let date = document.querySelector("#date");
-date.innerHTML = formatDate(todaysDate);
+function changeTime(response) {
+  let dateElement = document.querySelector("#date");
+  let todaysDate = new Date(response.data.formatted);
+  dateElement.innerHTML = formatDate(todaysDate);
+}
+
+function getTime(coordinates) {
+  let apiUrl = `http://api.timezonedb.com/v2.1/get-time-zone?key=GJVOQZUKWFGE&format=json&by=position&lat=${coordinates.lat}&lng=${coordinates.lon}`;
+  axios.get(apiUrl).then(changeTime);
+}
+
+// CHANGE CITY NAME TITLE
 
 function displayCity(event) {
   event.preventDefault();
@@ -157,10 +170,10 @@ function displayCity(event) {
   h1.innerHTML = `${cityInput.value}`;
 }
 
-let celsiusTemperature = null;
-
 let cityForm = document.querySelector("form");
 cityForm.addEventListener("submit", displayCity);
+
+// TEMPERATURE UNITS
 
 function changeToF(event) {
   event.preventDefault();
@@ -181,12 +194,7 @@ function changeToC(event) {
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeToC);
 
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[day];
-}
+// CURRENT LOCATION
 
 //function currentLocationWeather(response) {
 //console.log(response.data);
