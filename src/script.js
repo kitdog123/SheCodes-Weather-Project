@@ -228,30 +228,3 @@ function changeToC(event) {
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeToC);
-
-// CURRENT LOCATION
-
-//function currentLocationWeather(response) {
-//console.log(response.data);
-//let temperatureRounded = Math.round(response.data.main.temp);
-//console.log(temperatureRounded);
-//let h1 = document.querySelector("h1");
-//h1.innerHTML = `The current temperature at your location is ${temperatureRounded}°C`;
-//}
-
-//function showCoordinates(position) {
-//  console.log(position);
-//  let lat = position.coords.latitude;
-//  let long = position.coords.longitude;
-//}
-
-//function getCurrentLocation() {
-// navigator.geolocation.getCurrentPosition(showCoordinates);
-//}
-
-//let locationButton = document.querySelector("#location-submit");
-//locationButton.addEventListener("click", getCurrentLocation);
-
-//let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
-//let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
-//axios.get(apiUrl).then(currentLocationWeather);
