@@ -42,12 +42,7 @@ footer {
   margin-top: 20px;
   font-size: small;
 }
-.currentWeatherEmoji {
-  font-size: 80px;
 
-  border-style: solid;
-  border-width: 2px;
-}
 .weather-app-wrapper {
   max-width: 600px;
   margin: 30px auto;

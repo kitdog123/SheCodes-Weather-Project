@@ -1,4 +1,42 @@
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function formatGif(description) {
+  if (description === "Rain") {
+    return "images/rain.gif";
+  }
+  if (description === "Clear") {
+    return "images/sun.gif";
+  }
+  if (description === "Clouds") {
+    return "images/clouds.gif";
+  }
+  if (description === "Thunderstorm") {
+    return "images/storm.gif";
+  }
+  if (description === "Drizzle") {
+    return "images/drizzle.gif";
+  }
+  if (description === "Snow") {
+    return "images/snowflake.gif";
+  }
+  if (
+    description === "Mist" ||
+    description === "Smoke" ||
+    description === "Haze" ||
+    description === "Fog" ||
+    description === "Dust"
+  ) {
+    return "images/foggy.gif";
+  }
+}
+
 function displayForecast(response) {
+  console.log(response.data.daily);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
@@ -9,7 +47,9 @@ function displayForecast(response) {
         `
               <div class="col-2">
                 <div class="forecast-date">${formatDay(forecastDay.dt)}</div>
-                <img src="images/rain.gif" alt="rain" id="forecast-gif" />
+                <img src="${formatGif(
+                  forecastDay.weather[0].main
+                )}" alt="rain" id="forecast-gif" />
                 <div class="forecast-temperatures">
                   <span class="forecast-max">${Math.round(
                     forecastDay.temp.max
@@ -27,15 +67,6 @@ function displayForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[day];
-}
-
-let celsiusTemperature = null;
 
 function changeGif(description) {
   let weatherGif = document.querySelector("#weather-gif");
@@ -78,11 +109,13 @@ function getForecast(coordinates) {
 function getWeather(response) {
   let temperatureRounded = Math.round(response.data.main.temp);
   let displayTemp = document.querySelector("#temperature");
-  let weatherDescriptionElement = document.querySelector("#weatherDescription");
+  let weatherDescriptionElement = document.querySelector(
+    "#weather-description"
+  );
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
-  let highTemp = document.querySelector("#highTemp");
-  let lowTemp = document.querySelector("#lowTemp");
+  let highTemp = document.querySelector("#high-temp");
+  let lowTemp = document.querySelector("#low-temp");
 
   celsiusTemperature = response.data.main.temp;
   displayTemp.innerHTML = `${temperatureRounded}`;
@@ -107,6 +140,8 @@ function showCity(event) {
 
 let citySearchForm = document.querySelector("#city-form");
 citySearchForm.addEventListener("submit", showCity);
+
+let celsiusTemperature = null;
 
 // DATE AND TIME
 
@@ -204,12 +239,19 @@ celsius.addEventListener("click", changeToC);
 //h1.innerHTML = `The current temperature at your location is ${temperatureRounded}°C`;
 //}
 
-//function showLocation(position) {
-//let lat = position.coords.latitude;
-//let long = position.coords.longitude;
+//function showCoordinates(position) {
+//  console.log(position);
+//  let lat = position.coords.latitude;
+//  let long = position.coords.longitude;
+//}
+
+//function getCurrentLocation() {
+// navigator.geolocation.getCurrentPosition(showCoordinates);
+//}
+
+//let locationButton = document.querySelector("#location-submit");
+//locationButton.addEventListener("click", getCurrentLocation);
+
 //let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
 //let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
 //axios.get(apiUrl).then(currentLocationWeather);
-//}
-
-//navigator.geolocation.getCurrentPosition(showLocation);
