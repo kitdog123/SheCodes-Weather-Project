@@ -85,14 +85,16 @@ footer {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  min-width: 50%;
+  max-height: 100%;
 }
 #forecast-gif {
   height: 40px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  min-width: 50%;
+  max-height: 100%;
 }
 #celsius {
   color: #33cccc;
