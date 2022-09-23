@@ -107,6 +107,7 @@ function getForecast(coordinates) {
 }
 
 function getWeather(response) {
+  let cityTitle = document.querySelector("h1");
   let temperatureRounded = Math.round(response.data.main.temp);
   let displayTemp = document.querySelector("#temperature");
   let weatherDescriptionElement = document.querySelector(
@@ -117,6 +118,7 @@ function getWeather(response) {
   let highTemp = document.querySelector("#high-temp");
   let lowTemp = document.querySelector("#low-temp");
 
+  cityTitle.innerHTML = response.data.name;
   celsiusTemperature = response.data.main.temp;
   displayTemp.innerHTML = `${temperatureRounded}`;
   weatherDescriptionElement.innerHTML = response.data.weather[0].description;
@@ -131,17 +133,26 @@ function getWeather(response) {
   getTime(response.data.coord);
 }
 
-function showCity(event) {
-  let city = document.querySelector("#city-input").value;
+let celsiusTemperature = null;
+
+// HANDLE FORM & SEARCH CITY
+
+function searchCity(city) {
   let apiKey = "2daf65f0cdaa917f11026e8a128ce271";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(getWeather);
 }
 
-let citySearchForm = document.querySelector("#city-form");
-citySearchForm.addEventListener("submit", showCity);
+function handleSubmit(event) {
+  event.preventDefault();
+  let city = document.querySelector("#city-input");
+  searchCity(city.value);
+}
 
-let celsiusTemperature = null;
+let citySearchForm = document.querySelector("#city-form");
+citySearchForm.addEventListener("submit", handleSubmit);
+
+searchCity("London");
 
 // DATE AND TIME
 
@@ -187,18 +198,6 @@ function getTime(coordinates) {
   let apiUrl = `https://api.timezonedb.com/v2.1/get-time-zone?key=GJVOQZUKWFGE&format=json&by=position&lat=${coordinates.lat}&lng=${coordinates.lon}`;
   axios.get(apiUrl).then(changeTime);
 }
-
-// CHANGE CITY NAME TITLE
-
-function displayCity(event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#city-input");
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = `${cityInput.value}`;
-}
-
-let cityForm = document.querySelector("form");
-cityForm.addEventListener("submit", displayCity);
 
 // TEMPERATURE UNITS
 
